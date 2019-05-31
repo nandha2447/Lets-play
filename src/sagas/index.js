@@ -1,9 +1,10 @@
 import { all, fork } from 'redux-saga/effects';
-import { watchCreateInterest } from './interests';
+import { watchCreateInterest, watchFetchLocations } from './interests';
 
 const rootSaga = function*() {
     yield all([
-        fork(watchCreateInterest)
+        fork(watchCreateInterest),
+        fork(watchFetchLocations)
     ])
 }
 
