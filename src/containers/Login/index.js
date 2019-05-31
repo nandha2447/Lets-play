@@ -1,5 +1,12 @@
 import React from 'react';
 import { Grid, Paper, TextField, Button, Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { loginRequest, registerUser } from '../../reducers/login';
+
+
+
 
 class Login extends React.Component {
   constructor() {
@@ -12,6 +19,12 @@ class Login extends React.Component {
     };
   }
 
+  componentWillUpdate(){
+    if(this.props.state.user.isAuthenticated){
+      this.props.history.push('/interests');
+    }
+  }
+
   setRegisterPage = () => {
     this.setState({ toggleLoginRegister: false });
   };
@@ -20,9 +33,30 @@ class Login extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  login = () => {
+    const { username, password } = this.state;
+
+    this.props.loginRequest(username, password);
+  };
+
+  registerUser = () => {
+    const { username, password, confirmPassword } = this.state;
+
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+  } else {
+    this.props.registerUser(username, password);
+    this.setState({ toggleLoginRegister: true, username: '',password: '',confirmPassword: '' });
+
+  }
+    
+  };
+
   render() {
-    const { toggleLoginRegister } = this.state;
-    console.log(this.state.username);
+    const { username, password, toggleLoginRegister, confirmPassword } = this.state;
+    const isLoginDisabled = username === '' || password === '' ? true : false;
+    const isRegisterDisabled = username === '' || password === '' || confirmPassword === '' ? true : false;
+
     return (
       <Grid
         direction="row"
@@ -53,9 +87,10 @@ class Login extends React.Component {
                 <TextField
                   name="username"
                   label="Username"
-                  value={this.state.username}
+                  value={username}
                   fullWidth={true}
                   onChange={this.handleChange}
+                  required={true}
                 />
               </Grid>
               <Grid
@@ -70,9 +105,10 @@ class Login extends React.Component {
                   name="password"
                   type="password"
                   label="Password"
-                  value={this.state.password}
+                  value={password}
                   fullWidth={true}
                   onChange={this.handleChange}
+                  required={true}
                 />
               </Grid>
 
@@ -85,7 +121,7 @@ class Login extends React.Component {
                 xs={6}
                 style={{ marginTop: 20 }}
               >
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" disabled={isLoginDisabled} onClick={this.login}>
                   Login
                 </Button>
                 <Button
@@ -111,9 +147,10 @@ class Login extends React.Component {
                 <TextField
                   name="username"
                   label="Username"
-                  value={this.state.username}
+                  value={username}
                   fullWidth={true}
                   onChange={this.handleChange}
+                  required={true}
                 />
               </Grid>
               <Grid
@@ -128,9 +165,10 @@ class Login extends React.Component {
                   name="password"
                   type="password"
                   label="Password"
-                  value={this.state.password}
+                  value={password}
                   fullWidth={true}
                   onChange={this.handleChange}
+                  required={true}
                 />
               </Grid>
               <Grid
@@ -145,9 +183,10 @@ class Login extends React.Component {
                   name="confirmPassword"
                   type="password"
                   label="Confirm Password"
-                  value={this.state.password}
+                  value={confirmPassword}
                   fullWidth={true}
                   onChange={this.handleChange}
+                  required={true}
                 />
               </Grid>
               <Grid
@@ -162,6 +201,8 @@ class Login extends React.Component {
                 <Button
                   variant="contained"
                   color="secondary" 
+                  disabled={isRegisterDisabled}
+                  onClick={this.registerUser}
                 >
                   Register
                 </Button>
@@ -174,4 +215,21 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+      state,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginRequest: (username,password) => {
+          dispatch(loginRequest(username,password))
+      },
+      registerUser: (username,password) => {
+        dispatch(registerUser(username,password))
+    }
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
