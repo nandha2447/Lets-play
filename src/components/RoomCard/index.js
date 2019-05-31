@@ -30,7 +30,7 @@ const styles = theme => ({
 
 class RoomCard extends React.Component {
     render() {
-  const { classes, room } = this.props;
+  const { classes, room, onOptOut, onJoin } = this.props;
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -44,26 +44,26 @@ class RoomCard extends React.Component {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {room.game}
+                  {room.sport_name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {room.ground}
+                  {room.ground_name}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {room.location}
+                  {room.location_address} - {room.time_bound}
                 </Typography>
               </Grid>
               <Grid item container justify='flex-end'>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={()=>onOptOut}>
                   Opt out
                 </Button>
-                <Button variant="contained" color="primary" style={{marginLeft: '10px'}}>
+                <Button variant="contained" color="primary" style={{marginLeft: '10px'}} onClick={onJoin}>
                   Join
                 </Button>
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">{room.joined}/{room.capacity}</Typography>
+              <Typography variant="subtitle1">{room.joined}/{room.player_capacity}</Typography>
             </Grid>
           </Grid>
         </Grid>

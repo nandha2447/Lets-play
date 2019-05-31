@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { Menu, AccountCircle } from '@material-ui/icons';
 import RoomCard from './../../components/RoomCard'
+import { connect } from 'react-redux';
+import {fetchRooms} from './../../reducers/rooms'
 
 const styles = (theme) =>
     createStyles({
@@ -23,38 +25,12 @@ const styles = (theme) =>
     });
 
 class Home extends React.Component {
+    componentDidMount(){
+        this.props.fetchRooms();
+    }
     render() {
-        const { classes } = this.props;
-        const roomList = [
-            {
-                game: 'Football',
-                ground: 'Spors Arena 1',
-                location: 'Hinjewadi Phase 2',
-                capacity: 10,
-                joined: 5,
-            },
-            {
-                game: 'Football',
-                ground: 'Spors Arena 1',
-                location: 'Hinjewadi Phase 2',
-                capacity: 10,
-                joined: 5,
-            },
-            {
-                game: 'Football',
-                ground: 'Spors Arena 1',
-                location: 'Hinjewadi Phase 2',
-                capacity: 10,
-                joined: 5,
-            },
-            {
-                game: 'Football',
-                ground: 'Spors Arena 1',
-                location: 'Hinjewadi Phase 2',
-                capacity: 10,
-                joined: 5,
-            },
-        ];
+        const { classes, roomList } = this.props;
+
         return (<div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
@@ -72,7 +48,7 @@ class Home extends React.Component {
 
             <div className={classes.cardContainer}>
                 <Grid container spacing={4}>
-                    {roomList.map(room => (
+                    {roomList.length && roomList.map(room => (
 
                         <Grid item xs={3}>
                             <RoomCard room={room} />
@@ -86,4 +62,23 @@ class Home extends React.Component {
     }
 }
 
-export default withStyles(styles)(Home);
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        roomList: state.rooms.rooms,
+    };
+  };
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      fetchRooms: () =>
+        dispatch(fetchRooms()),
+      
+    };
+  };
+
+
+
+export default withStyles(styles)(connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Home));
