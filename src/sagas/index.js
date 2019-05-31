@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
-import {  watchFetchLocations,watchFetchSports  } from './interests';
+import {  watchFetchLocations,watchFetchSports, watchUpdateInterests  } from './interests';
 import { watchLoginRequest, watchRegisterUser } from './login';
 import { watchFetchRooms } from './rooms';
 
@@ -10,6 +10,7 @@ const rootSaga = function*() {
         fork(watchFetchLocations),
         fork(watchFetchSports),
         fork(watchFetchRooms),
+        fork(watchUpdateInterests),
     ]);
 }
 

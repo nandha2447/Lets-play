@@ -6,6 +6,15 @@ export const fetchAllSports = () => ({
     type: 'FETCH_ALL_SPORTS',
 })
 
+export const updateInterests = ({preferredLocation, preferredSport}) => ({
+    type: 'UPDATE_INTERESTS',
+    payload: {
+        id: 1,
+        prefered_location_id: preferredLocation,
+        prefered_sport_id: preferredSport,
+    }
+})
+
 const initialState = {
     preferredLocation: '',
     preferredTime: '',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAllLocations, fetchAllSports } from '../../reducers/interests';
+import { fetchAllLocations, fetchAllSports, updateInterests } from '../../reducers/interests';
 import { AppBar, createStyles, withStyles, Toolbar, Typography, IconButton, Grid, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
 import { Menu, AccountCircle } from '@material-ui/icons';
 
@@ -50,7 +50,10 @@ class Interests extends React.Component {
        });
     }
     handleNext = () => {
-        
+        this.props.updateInterests({
+            preferredLocation: this.state.preferredLocation,
+            preferredSport: this.state.preferredSport,
+        });
     }
     render() {
         const { classes, locationList, sportsList } = this.props;
@@ -141,6 +144,12 @@ const mapDispatchToProps = (dispatch) => {
         fetchSports: () => {
             dispatch(fetchAllSports())
         },
+        updateInterests: ({preferredLocation, preferredSport}) => {
+            dispatch(updateInterests({
+                preferredLocation,
+                preferredSport,
+            }))
+        }
     }
 }
 
