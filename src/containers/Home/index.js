@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Menu, AccountCircle } from '@material-ui/icons';
 import RoomCard from './../../components/RoomCard'
 import { connect } from 'react-redux';
-import {fetchRooms} from './../../reducers/rooms'
+import { fetchRooms, requestJoin, requestOptout } from './../../reducers/rooms'
 
 const styles = (theme) =>
     createStyles({
@@ -25,11 +25,22 @@ const styles = (theme) =>
     });
 
 class Home extends React.Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchRooms();
     }
+
+    handleJoin = (user_id) => (room_id) => {
+        this.props.requestJoin(user_id, room_id);
+
+    }
+
+    handleOptOut = (user_id) => (room_id) => {
+        this.props.requestOptOut(user_id, room_id);
+
+    }
+
     render() {
-        const { classes, roomList } = this.props;
+        const { classes, roomList, user } = this.props;
 
         return (<div className={classes.root}>
             <AppBar position="static">
@@ -48,10 +59,10 @@ class Home extends React.Component {
 
             <div className={classes.cardContainer}>
                 <Grid container spacing={4}>
-                    {roomList.length && roomList.map(room => (
+                    {roomList.length && user && roomList.map(room => (
 
                         <Grid item xs={3}>
-                            <RoomCard room={room} />
+                            <RoomCard room={room} onJoin={this.handleJoin(user.id)} onOptOut={this.handleOptOut(user.id)} />
                         </Grid>
                     ))}
 
@@ -66,19 +77,24 @@ const mapStateToProps = (state) => {
     console.log(state);
     return {
         roomList: state.rooms.rooms,
+        user: state.user.user,
     };
-  };
-  const mapDispatchToProps = (dispatch) => {
+};
+const mapDispatchToProps = (dispatch) => {
     return {
-      fetchRooms: () =>
-        dispatch(fetchRooms()),
-      
+        fetchRooms: () =>
+            dispatch(fetchRooms()),
+        requestJoin: (user_id, room_id) =>
+            dispatch(requestJoin(user_id, room_id)),
+        requestOptOut: (user_id, room_id) =>
+            dispatch(requestOptout(user_id, room_id)),
+
     };
-  };
+};
 
 
 
 export default withStyles(styles)(connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Home));
+)(Home));

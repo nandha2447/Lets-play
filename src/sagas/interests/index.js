@@ -60,3 +60,34 @@ export function* watchFetchSports(){
         fetchSports
     )
 }
+
+function* updateInterests({ payload }){
+    try{
+        const response = yield call (apiUtil, {
+            endpoint: 'users',
+            method: 'put',
+            authenticated: true,
+            params: {},
+            lightHouseService: 'default',
+            data: payload,
+        });
+        console.log(response);
+        const successAction = {
+            type: 'UPDATE_INTERESTS_SUCCESS',
+            payload: {
+                details: response,
+            }
+        }
+
+        yield put(successAction);
+    } catch (error){
+        console.log(error);
+    }
+}
+
+export function* watchUpdateInterests(){
+    yield takeLatest(
+        'UPDATE_INTERESTS',
+        updateInterests
+    )
+}
