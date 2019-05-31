@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAllLocations } from '../../reducers/interests';
+import { fetchAllLocations, fetchAllSports } from '../../reducers/interests';
 
 class Interests extends React.Component {
     componentDidMount(){
         this.props.fetchLocations();
+        this.props.fetchSports();
     }
     render() {
         return <h1>Interests {JSON.stringify(this.props.state)}</h1>;
@@ -21,7 +22,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchLocations: () => {
             dispatch(fetchAllLocations())
-        }
+        },
+        fetchSports: () => {
+            dispatch(fetchAllSports())
+        },
     }
 }
 
