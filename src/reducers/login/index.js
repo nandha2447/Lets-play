@@ -15,7 +15,7 @@ export const registerUser = (username,password) => ({
 })
 
 const initialState = {
-    user: {},
+    user: null,
 }
 
 const reducer = (state = initialState, action) => {

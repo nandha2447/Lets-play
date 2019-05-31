@@ -51,8 +51,8 @@ class Interests extends React.Component {
     }
     handleNext = () => {
         this.props.updateInterests({
-            preferredLocation: this.state.preferredLocation,
-            preferredSport: this.state.preferredSport,
+            preferredLocation: this.state.selectedLocation,
+            preferredSport: this.state.selectedSport,
         });
     }
     render() {
