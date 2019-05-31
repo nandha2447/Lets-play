@@ -61,12 +61,11 @@ class Login extends React.Component {
 
     return (
       <Grid
-        direction="row"
+        container
         justify="center"
         alignItems="center"
-        style={{ height: '100%' }}
+        style={{  height: 'calc(100vh - 4px)' }}
         spacing={24}
-        xs={12}
       >
         <Paper
           style={{ height: 600, width: 600, padding: 20 }}
@@ -84,7 +83,7 @@ class Login extends React.Component {
                 justify="flex-start"
                 alignItems="flex-start"
                 spacing={0}
-                xs={6}
+                xs={8}
               >
                 <TextField
                   name="username"
@@ -101,7 +100,7 @@ class Login extends React.Component {
                 justify="flex-start"
                 alignItems="flex-start"
                 spacing={0}
-                xs={6}
+                xs={8}
               >
                 <TextField
                   name="password"
@@ -120,7 +119,7 @@ class Login extends React.Component {
                 justify="space-around"
                 alignItems="center"
                 spacing={0}
-                xs={6}
+                xs={8}
                 style={{ marginTop: 20 }}
               >
                 <Button variant="contained" color="secondary" disabled={isLoginDisabled} onClick={this.login}>
@@ -144,7 +143,7 @@ class Login extends React.Component {
                 justify="flex-start"
                 alignItems="flex-start"
                 spacing={0}
-                xs={6}
+                xs={8}
               >
                 <TextField
                   name="username"
@@ -161,7 +160,7 @@ class Login extends React.Component {
                 justify="flex-start"
                 alignItems="flex-start"
                 spacing={0}
-                xs={6}
+                xs={8}
               >
                 <TextField
                   name="password"
@@ -179,7 +178,7 @@ class Login extends React.Component {
                 justify="flex-start"
                 alignItems="flex-start"
                 spacing={0}
-                xs={6}
+                xs={8}
               >
                 <TextField
                   name="confirmPassword"
@@ -197,7 +196,7 @@ class Login extends React.Component {
                 justify="center"
                 alignItems="center"
                 spacing={0}
-                xs={6}
+                xs={8}
                 style={{ marginTop: 20 }}
               >
                 <Button
