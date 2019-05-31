@@ -2,6 +2,10 @@ export const fetchAllLocations = () => ({
     type: 'FETCH_ALL_LOCATIONS',
 })
 
+export const fetchAllSports = () => ({
+    type: 'FETCH_ALL_SPORTS',
+})
+
 const initialState = {
     preferredLocation: '',
     preferredTime: '',
@@ -17,6 +21,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 locationList: action.payload.locations,
+            };
+        case 'FETCH_ALL_SPORTS_SUCCESS':
+            return {
+                ...state,
+                sportsList: action.payload.locations,
             };
         default:
             return state;
