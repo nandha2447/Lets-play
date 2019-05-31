@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
     interests: interestReducer,
     rooms: roomsReducer,
     form: formReducer,
+    user: loginReducer,
 })
 
 export default rootReducer;
