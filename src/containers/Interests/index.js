@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllLocations, fetchAllSports } from '../../reducers/interests';
-import { AppBar, createStyles, withStyles, Toolbar, Typography, IconButton } from '@material-ui/core';
+import { AppBar, createStyles, withStyles, Toolbar, Typography, IconButton, Grid, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
 import { Menu, AccountCircle } from '@material-ui/icons';
 
 const styles = (theme) =>
@@ -17,16 +17,43 @@ const styles = (theme) =>
         },
         cardContainer: {
             padding: 20,
+        },
+        interests: {
+            height: 'calc(100vh - 64px)',
+        },
+        dropdownWidth: {
+            width: '15%',
+            // paddingTop: 10,
+            // paddingBottom: 10,
+        },
+        nextButton: {
+            marginTop: 20,
         }
     });
 
 class Interests extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            selectedLocation: '',
+            selectedSport: '',
+        }
+    }
     componentDidMount(){
         this.props.fetchLocations();
         this.props.fetchSports();
     }
+    handleChange = (event) => {
+       this.setState({
+           ...this.state,
+           [event.target.name]: event.target.value,
+       });
+    }
+    handleNext = () => {
+        
+    }
     render() {
-        const { classes } = this.props;
+        const { classes, locationList, sportsList } = this.props;
         return (
             <div className={classes.root}>
                 <AppBar position="static">
@@ -42,6 +69,58 @@ class Interests extends React.Component {
                         </IconButton>
                     </Toolbar>
                 </AppBar>
+                <Grid className={classes.interests} container direction="column" justify="center" alignItems="center" >
+                    <FormControl className={classes.dropdownWidth}>
+                        <InputLabel htmlFor="location">Preferred Location</InputLabel>
+                        <Select
+                        fullWidth
+                        value={this.state.selectedLocation}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: 'selectedLocation',
+                            id: 'location',
+                        }}
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {
+                            locationList.map(item => (
+                                <MenuItem value={item.id}>
+                                    <em>{item.address}</em>
+                                </MenuItem>
+                            ))
+                        }
+                        </Select>
+                    </FormControl>
+
+                    <FormControl className={classes.dropdownWidth}>
+                    <InputLabel htmlFor="location">Preferred Sport</InputLabel>
+                        <Select
+                        fullWidth
+                        value={this.state.selectedSport}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: 'selectedSport',
+                            id: 'location',
+                        }}
+                        >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {
+                            sportsList.map(item => (
+                                <MenuItem value={item.id}>
+                                    <em>{item.sport_name}</em>
+                                </MenuItem>
+                            ))
+                        }
+                        </Select>
+                    </FormControl>
+                    <Button onClick={this.handleNext} variant="contained" color="primary" className={classes.nextButton}>
+                        Next
+                    </Button>
+                    </Grid>
             </div>
         )
     }
@@ -49,7 +128,8 @@ class Interests extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        state,
+        locationList: state.interests.locationList,
+        sportsList: state.interests.sportsList,
     }
 }
 

@@ -27,6 +27,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 sportsList: action.payload.locations,
             };
+        case 'UPDATE_INTERESTS_SUCCESS': {
+            return {
+                ...state,
+            }
+        }
         default:
             return state;
     }
