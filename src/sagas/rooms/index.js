@@ -63,7 +63,7 @@ function* joinRoom(action){
         
         console.log(response);
         const successAction = {
-            type: 'JOIN_ROOM__SUCCESS',
+            type: 'JOIN_ROOM_SUCCESS',
             payload: response
         }
 
@@ -75,8 +75,8 @@ function* joinRoom(action){
 function* optOutOfRoom(action){
     try{
         const response = yield call (apiUtil, {
-            endpoint: 'rooms',
-            method: 'post',
+            endpoint: 'room-user',
+            method: 'delete',
             authenticated: true,
             data: action.payload,
             lightHouseService: 'default',
