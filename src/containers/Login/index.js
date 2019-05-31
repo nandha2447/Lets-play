@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Paper, TextField, Button, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import {get} from 'lodash';
 
 import { loginRequest, registerUser } from '../../reducers/login';
 
@@ -20,7 +21,7 @@ class Login extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.state.user.user.username) {
+    if (get(this.props, 'state.user.user.username', undefined)) {
       this.props.history.push('/interests');
     }
   }
