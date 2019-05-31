@@ -19,8 +19,8 @@ class Login extends React.Component {
     };
   }
 
-  componentWillUpdate(){
-    if(this.props.state.user.isAuthenticated){
+  componentDidUpdate() {
+    if (this.props.state.user.user.username) {
       this.props.history.push('/interests');
     }
   }
@@ -57,6 +57,8 @@ class Login extends React.Component {
     const isLoginDisabled = username === '' || password === '' ? true : false;
     const isRegisterDisabled = username === '' || password === '' || confirmPassword === '' ? true : false;
 
+    console.log(this.props.state.user);
+
     return (
       <Grid
         direction="row"
@@ -72,7 +74,7 @@ class Login extends React.Component {
           square={true}
         >
           <Grid item xs={12}>
-            <Typography variant="h4">Welcome To Let's Play</Typography>
+            <Typography variant="h4">Let's Play</Typography>
           </Grid>
           {toggleLoginRegister ? (
             <React.Fragment>

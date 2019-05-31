@@ -16,7 +16,7 @@ function* loginRequest(payload){
         const successAction = {
             type: 'LOGIN_SUCCESS',
             payload: {
-                user: payload.payload,
+                user: response,
             }
         }
 
@@ -40,7 +40,7 @@ function* registerUser(payload){
         const successAction = {
             type: 'REGISTER_USER_SUCCESS',
             payload: {
-                user: payload.payload,
+                user: response,
             }
         }
 

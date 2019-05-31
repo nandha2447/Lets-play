@@ -15,8 +15,7 @@ export const registerUser = (username,password) => ({
 })
 
 const initialState = {
-    user: '',
-    isAuthenticated: false,
+    user: {},
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,13 +24,9 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload.user,
-                isAuthenticated: true,
+               
             };
-            case 'REGISTER_USER_SUCCESS':
-            return {
-                ...state,
-                user: action.payload.user,
-            };
+           
         default:
             return state;
     }
