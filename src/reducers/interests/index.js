@@ -16,6 +16,9 @@ export const updateInterests = ({preferredLocation, preferredSport}) => ({
 })
 
 const initialState = {
+    id: '',
+    balance: 0,
+    username: '',
     preferredLocation: '',
     preferredTime: '',
     preferredSport: '',
@@ -37,8 +40,14 @@ const reducer = (state = initialState, action) => {
                 sportsList: action.payload.locations,
             };
         case 'UPDATE_INTERESTS_SUCCESS': {
+            console.log(action.payload);
             return {
                 ...state,
+                preferredLocation: action.payload.details.prefered_location_id,
+                preferredSport: action.payload.details.prefered_sport_id,
+                username: action.payload.details.username,
+                id: action.payload.details.id,
+                balance: action.payload.details.balance,
             }
         }
         default:

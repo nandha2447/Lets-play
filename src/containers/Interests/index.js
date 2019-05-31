@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAllLocations, fetchAllSports, updateInterests } from '../../reducers/interests';
 import { AppBar, createStyles, withStyles, Toolbar, Typography, IconButton, Grid, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
 import { Menu, AccountCircle } from '@material-ui/icons';
+import { get } from 'lodash';
 
 const styles = (theme) =>
     createStyles({
@@ -42,6 +43,11 @@ class Interests extends React.Component {
     componentDidMount(){
         this.props.fetchLocations();
         this.props.fetchSports();
+    }
+    componentDidUpdate() {
+        if (get(this.props, 'id', undefined)) {
+          this.props.history.push('/home');
+        }
     }
     handleChange = (event) => {
        this.setState({
@@ -133,6 +139,7 @@ const mapStateToProps = (state) => {
     return {
         locationList: state.interests.locationList,
         sportsList: state.interests.sportsList,
+        id: state.interests.id,
     }
 }
 
