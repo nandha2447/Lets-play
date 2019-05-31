@@ -2,6 +2,20 @@ export const fetchRooms = () => ({
     type: 'FETCH_ROOMS_REQUEST',
 })
 
+export const requestJoin = (user_id, room_id) => ({
+    type: 'JOIN_ROOM_REQUEST',
+    payload:{
+        user_id, room_id
+    }
+})
+
+export const requestOptout = (user_id, room_id) => ({
+    type: 'OPTOUTOF_ROOM_REQUEST',
+    payload:{
+        user_id, room_id
+    }
+})
+
 
 const initialState = {
     rooms:[]
