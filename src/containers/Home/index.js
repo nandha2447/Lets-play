@@ -62,7 +62,7 @@ class Home extends React.Component {
                     {roomList.length && user && roomList.map(room => (
 
                         <Grid item xs={3}>
-                            <RoomCard room={room} onJoin={this.handleJoin(user.id)} onOptOut={this.handleOptOut(user.id)} />
+                            <RoomCard room={room} onJoin={this.handleJoin(user.id)} onOptOut={this.handleOptOut(user.id)} joinDisabled={room.players.includes(user.id)} />
                         </Grid>
                     ))}
 
